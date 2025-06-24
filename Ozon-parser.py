@@ -37,13 +37,13 @@ def get_product_info(product_url):
         print(product_id, full_name)
         return (product_id, full_name, "Товар для лиц старше 18 лет", None, None)
     else:
-        description = json.loads(json_data["seo"]["script"][0]["innerHTML"])["description"]
-        image_url = json.loads(json_data["seo"]["script"][0]["innerHTML"])["image"]
-        price = json.loads(json_data["seo"]["script"][0]["innerHTML"])["offers"]["price"] + " " +\
-                json.loads(json_data["seo"]["script"][0]["innerHTML"])["offers"]["priceCurrency"]
-        rating = json.loads(json_data["seo"]["script"][0]["innerHTML"]["ratingValue"])
-        rating_counter = json.loads(json_data["seo"]["script"][0]["innerHTML"]["reviewCount"])
-        product_id = json.loads(json_data["seo"]["script"][0]["innerHTML"])["sku"]
+        seo_json = json.loads(json_data["seo"]["script"][0]["innerHTML"])
+        description = seo_json["description"]
+        image_url = seo_json["image"]
+        price = seo_json["offers"]["price"] + " " + seo_json["offers"]["priceCurrency"]
+        rating = seo_json["ratingValue"]
+        rating_counter = seo_json["reviewCount"]
+        product_id = seo_json["sku"]
 
         return (product_id, full_name, description, price, rating, rating_counter, image_url)
 
